@@ -1,0 +1,28 @@
+(define (make-queue)
+  (let ((front-ptr '())
+        (rear-ptr '()))
+    (define empty? (null? front-ptr))
+    (define (set-front-ptr! value)
+      (set! front-ptr value))
+    (define (set-rear-ptr! value)
+      (set! rear-ptr value))
+    (define (insert! value)
+      (let ((new-node (cons value '())))
+        (if (null? front-ptr)
+            (begin
+              (set! front-ptr new-node)
+              (set! rear-ptr new-node)
+              front-ptr)
+            (begin
+              (set-cdr! rear-ptr new-node)
+              (set! rear-ptr new-node)
+              front-ptr))))
+    (define dispatch
+      (lambda (x)
+        (cond ((eq? x 'empty?) (null? front-ptr))
+              ((eq? x 'insert!) insert!)
+              ((eq? x 'delete) 
+               (begin
+                 (set! front-ptr (cdr front-ptr))
+                 front-ptr)))))
+    dispatch))

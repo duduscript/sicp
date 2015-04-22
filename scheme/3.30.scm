@@ -1,0 +1,5 @@
+(define (make-full-adders n input-a input-b c-in output-s)
+  (cond ((> n 0)
+         (let ((c-out (make-wire)))
+           (full-adder (car input-a) (car input-b) c-in (car output-s) c-out)
+           (make-full-adders (- n 1) (cdr input-a) (cdr input-b) c-out (cdr output-s))))))

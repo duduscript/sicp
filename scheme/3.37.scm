@@ -1,0 +1,16 @@
+(define (c- x y)
+  (let ((z (make-connector)))
+    (adder y z x)
+    z))
+
+(define (c* x y)
+  (let ((z (make-connector)))
+    (multiplier x y z)
+    z))
+
+(define (c/ x y)
+  (let ((z (make-connector)))
+    (if (= (get-value y) 0)
+        (error "DIVISION NUMBER CAN NOT BE 0!")
+        (multiplier y z x))
+    z))
